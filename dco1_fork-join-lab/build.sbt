@@ -2,7 +2,7 @@ name := "fork-join-lab"
 
 version := "0.1"
 
-scalaVersion := "2.13.6"
+scalaVersion := "2.13.11"
 
 idePackagePrefix := Some("de.othr.dco")
 
