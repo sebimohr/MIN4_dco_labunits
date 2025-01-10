@@ -1,5 +1,6 @@
 package de.othr.dco
 
+import Constant.{THRESHOLD, MAX_INTEGER, PRINT_RESULT, RUN_STRATEGY}
 import RunStrategy.RunStrategy
 
 import java.util.concurrent.{ForkJoinPool, RecursiveAction, RecursiveTask}
@@ -10,13 +11,16 @@ object RunStrategy extends Enumeration {
   val RECURSIVE_MUTABLE, RECURSIVE_IMMUTABLE, ITERATIVE_MUTABLE = Value
 }
 
+object Constant {
+  val THRESHOLD = 4
+  val MAX_INTEGER = 1_000_000
+  val RUN_STRATEGY: RunStrategy = RunStrategy.RECURSIVE_IMMUTABLE
+  val PRINT_RESULT = false
+}
+
 
 object LabApplication extends App {
-  private val maxInteger = 100
-  private val runStrategy = RunStrategy.RECURSIVE_MUTABLE
-  private val printResult = false
-
-  private def getTaskToExecute(task: RunStrategy) = task match {
+  private def getTaskToExecute = RUN_STRATEGY match {
     case RunStrategy.RECURSIVE_MUTABLE => new RecursiveMutable(array, 0, array.length - 1)
     case RunStrategy.RECURSIVE_IMMUTABLE => new RecursiveImmutable(List.from(array))
     case RunStrategy.ITERATIVE_MUTABLE => throw new NotImplementedError("Not yet implemented.")
@@ -30,27 +34,30 @@ object LabApplication extends App {
 
   // Create ForkJoinPool with parallelism of available processors
   private val forkJoinPool = new ForkJoinPool(Runtime.getRuntime.availableProcessors())
-  private val array = 1 to maxInteger toArray
+  private val array = 1 to MAX_INTEGER toArray
 
   // Create task to execute in ForkJoinPool, then invoke it
-  private val task = getTaskToExecute(runStrategy)
+  private val task = getTaskToExecute
   private val result = forkJoinPool.invoke(task)
 
-  if (printResult) {
-    if (result.isInstanceOf[List[Int]]) {
-      Iterable(result).foreach(println)
-    } else {
-      array.foreach(println)
-    }
+  private def intMustBeEven(int: Int): Unit = {
+    if (PRINT_RESULT)
+      println(int)
+    else if ((int % 2) > 0)
+      println(s"$int has not been doubled!")
+
+  }
+  result match {
+    case intList: List[Int] =>
+      intList.foreach(intMustBeEven)
+    case _ =>
+      array.foreach(intMustBeEven)
   }
 }
 
 class RecursiveMutable(array: Array[Int], start: Int, end: Int) extends RecursiveAction {
-  // Threshold for single Task computation
-  private val Threshold = 4
-
   override def compute(): Unit = {
-    if (end - start < Threshold) {
+    if (end - start < THRESHOLD) {
       println(s"Doubling ${end - start} numbers in task.")
       (start to end).foreach(i => array(i) = array(i) * 2)
     } else {
@@ -70,11 +77,8 @@ class RecursiveMutable(array: Array[Int], start: Int, end: Int) extends Recursiv
 }
 
 class RecursiveImmutable(list: List[Int]) extends RecursiveTask[List[Int]] {
-  // Threshold for single Task computation
-  private val Threshold = 4
-
   override def compute(): List[Int] = {
-    if (list.length <= Threshold) {
+    if (list.length <= THRESHOLD) {
       println(s"Doubling ${list.length} numbers in task.")
       list.map(_ * 2)
     }
@@ -89,5 +93,13 @@ class RecursiveImmutable(list: List[Int]) extends RecursiveTask[List[Int]] {
       // Join tasks back together
       leftTask.join() ::: rightTask.join()
     }
+  }
+}
+
+class IterativeMutable(array: Array[Int], start: Int, end: Int, private val isInternal: Boolean = false) extends RecursiveAction {
+  // TODO: add constructor with only 3 input arguments for "mother" thread
+
+  override def compute(): Unit = {
+    // TODO: add iterative tasks that only compute internally
   }
 }
