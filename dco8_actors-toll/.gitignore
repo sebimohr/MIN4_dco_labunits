@@ -1,0 +1,17 @@
+.idea
+.bsp
+.bloop
+
+project/project/
+project/target/
+
+target/
+
+.tasty # Scala 3
+
+*.log
+*.iml
+*.ipr
+*.iws
+
+.DS_Store

@@ -1,0 +1,14 @@
+project/project
+project/target
+target/
+.bsp
+.idea
+.bloop
+*.iml
+*.log
+*.ipr
+*.iws
+
+.tasty # Scala 3
+
+.DS_Store # Mac

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dco_actors-clustered" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dco_actors-lab" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dco_actors-toll" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dco_actors-toll-persistence" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dco_actors-webshop" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dco_fork-join-lab-performance" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dco_project-whatsup" vcs="Git" />
+  </component>
+</project>
