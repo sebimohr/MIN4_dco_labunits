@@ -2,7 +2,7 @@ name := "actors-clustered"
 organization := "de.othr.dco"
 version := "0.1"
 
-scalaVersion := "2.13.7"
+scalaVersion := "2.13.11"
 
 val akkaVersion = "2.6.17"
 
