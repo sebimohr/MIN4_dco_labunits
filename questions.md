@@ -6,9 +6,9 @@
 - What is meant by the `ForkJoinPool::commonPool`?
 - Can you define a task using native `ForkJoinTask[V]`? If yes, how (what is different)? If no, give a short explanation why not.
 
-## Lab Unit 2 - fork join pool performance
-
 ## Lab Unit 3 - actors lab
+
+- Does this setup has an advantage over a single-threaded solution? If so, explain what it is, if not, explain why not and what would need to change in order to get an advantage.
 
 ## Lab Unit 4 - actors webshop
 
