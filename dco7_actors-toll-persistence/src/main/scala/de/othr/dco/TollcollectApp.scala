@@ -25,4 +25,5 @@ object TollcollectApp extends App {
 //  system ! "sensor-A3-2-NF_SY_432"
 //  system ! "sensor-A3-2-CLP_EE_5"
 
+  system.terminate()
 }
