@@ -2,7 +2,7 @@ package de.othr.dco
 
 import akka.actor.typed.ActorSystem
 
-object TollcollectApp extends App {
+object TollCollectApp extends App {
 
   val system = ActorSystem(TollSupervisor(), "toll-supervisor")
 
